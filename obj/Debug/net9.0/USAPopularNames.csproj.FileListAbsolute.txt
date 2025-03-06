@@ -1,0 +1,4 @@
+C:\Users\aksum\OneDrive\Työpöytä\Vamia\Verkko-ohjelmointi_Syventävä\USAPopularNames\obj\Debug\net9.0\USAPopularNames.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aksum\OneDrive\Työpöytä\Vamia\Verkko-ohjelmointi_Syventävä\USAPopularNames\obj\Debug\net9.0\USAPopularNames.AssemblyInfoInputs.cache
+C:\Users\aksum\OneDrive\Työpöytä\Vamia\Verkko-ohjelmointi_Syventävä\USAPopularNames\obj\Debug\net9.0\USAPopularNames.AssemblyInfo.cs
+C:\Users\aksum\OneDrive\Työpöytä\Vamia\Verkko-ohjelmointi_Syventävä\USAPopularNames\obj\Debug\net9.0\USAPopularNames.csproj.CoreCompileInputs.cache
