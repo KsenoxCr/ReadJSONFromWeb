@@ -1,89 +1,102 @@
 ﻿using System.Text.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
-// 1. Haetaan JSON tiedosto osoitteesta merkkijonoon
-// 2. Jäsennetään merkkijono JSON dokumentiksi
-// 3. Etsitään "data" avain
-// 4. luodaan tietorakenne johon tiedot tallennetaan
-// 5. Käydään data avaimen sisältämiä []
-// 
-// osoite = sivun url osoite
-// sJSON = NoudaOsoitteesta(osoite)
-//
-// dokumentti = JäsennäJSON(sJSON)
-//
-// Jos data JSON objekti löytyy dokumentista ja se on []
-//      
-//      lista tilastot<Tilasto>
-//      
-//      jokaista data objektin lapsiobjektia [] kohtaan
-//          jos tilastot ei sisällä lapsiobjekti[10] 
-//              lisää lapsiobjekt[10] tilastoihin, määrällä 1
-//          jos taas se löytyy jo tilastoista
-//              lisää löytyneen tilaston määrä yhdellä
-//
-// tietorakenne Tilasto
-//      Etnisyys
-//      määrä
-//  
+using System.Linq;
 
 namespace LueJSON
 {
-    class LueJSON {
+    class LueJSON
+    {
+        struct Stat
+        {
+            public string Etnicity { get; }
+            public int Count { get; set; }
 
-        /*struct Stat(string etnicity, int count) {*/
-        /*    string etnicity;*/
-        /*    int count;*/
-        /*}*/
-
-        struct Stat {
-            string Etnicity;
-            int Count;
-
-            public Stat(string etnicity, int count) {
+            public Stat(string etnicity, int count)
+            {
                 Etnicity = etnicity;
                 Count = count;
             }
         }
 
-        static async Task<string> FetchFromURL(string url) {
+        static async Task<string> FetchFromURL(string url)
+        {
             HttpClient client = new HttpClient();
             string response = await client.GetStringAsync(url);
             return response;
         }
 
-        static void Main(string[] args) {
-            string url = "https://data.cityofnewyork.us/api/views/25th-nujf/rows.json";
-            string sJSON;
+        static void PrintStats(in List<Stat> stats)
+        {
+            if (stats.Count > 0)
+            {
+                int longestEtn = stats.Select(stat => stat.Etnicity).OrderByDescending(etn => etn.Length).First().Count();
+                int biggestCount = stats.Select(stat => stat.Count).Max().ToString().Count();
 
-            try {
+                string sFormat = $"|{{0,-{longestEtn}}}|{{1,-{biggestCount}}}|";
+
+                string rowLine = $"|{new string('_', longestEtn)}|{new string('_', biggestCount)}|";
+
+                Console.WriteLine($" {new string('_', longestEtn + biggestCount + 1)} ");
+
+                foreach (Stat stat in stats)
+                {
+                    Console.WriteLine(string.Format(sFormat, stat.Etnicity, stat.Count));
+                    Console.WriteLine(rowLine);
+                }
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            string url = "https://data.cityofnewyork.us/api/views/25th-nujf/rows.json";
+            string sJSON = "";
+
+            try
+            {
                 sJSON = FetchFromURL(url).Result;
-            } catch (Exception e) {
-                Console.WriteLine("Tieton haku osoitteesta:\n"+url+" epäonnistui");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Tieton haku osoitteesta:\n" + url + " epäonnistui");
                 Console.WriteLine(e.Message);
             }
 
-            try {
-                using(JsonDocument doc = JsonDocument.Parse(sJSON))
+            try
+            {
+                using (JsonDocument doc = JsonDocument.Parse(sJSON))
                 {
-                    if (doc.RootElement.TryGetProperty("data", out JsonElement data)) {
+                    if (doc.RootElement.TryGetProperty("data", out JsonElement data))
+                    {
+                        string sData = data.GetRawText();
 
                         List<Stat> stats = new();
 
-                        foreach (JsonElement nameStats in data) {
-                            string etnicity = nameStats[10];
-                            
-                            if (!stats.Exists(stat => stat.Etnicity == etnicity)) {
+
+                        foreach (JsonElement name in data.EnumerateArray())
+                        {
+                            string etnicity = name[10].GetRawText().Trim('"');
+
+                            if (!stats.Exists(stat => stat.Etnicity == etnicity))
+                            {
                                 stats.Add(new Stat(etnicity, 1));
                             }
-                            else {
-                                stats.Find(stat => stat.Etnicity == etnicity).Count++;
+                            else
+                            {
+                                int index = stats.FindIndex(stat => stat.Etnicity == etnicity);
+
+                                if (stats[index].Etnicity != null)
+                                {
+                                    stats[index] = new Stat(etnicity, stats[index].Count + 1);
+                                }
                             }
                         }
+                        PrintStats(stats);
                     }
                 }
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine("JSON tiedoston jäsentäminen epäonnistui");
                 Console.WriteLine(e.Message);
             }

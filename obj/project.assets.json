@@ -8,24 +8,19 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\aksum\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\kseno\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aksum\\OneDrive\\Työpöytä\\Vamia\\Verkko-ohjelmointi_Syventävä\\USAPopularNames\\USAPopularNames.csproj",
+      "projectUniqueName": "C:\\Users\\kseno\\OneDrive\\Desktop\\Vamia\\verkko-ohjelmointi_Syventävä\\ReadJSONFromWeb\\USAPopularNames.csproj",
       "projectName": "USAPopularNames",
-      "projectPath": "C:\\Users\\aksum\\OneDrive\\Työpöytä\\Vamia\\Verkko-ohjelmointi_Syventävä\\USAPopularNames\\USAPopularNames.csproj",
-      "packagesPath": "C:\\Users\\aksum\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aksum\\OneDrive\\Työpöytä\\Vamia\\Verkko-ohjelmointi_Syventävä\\USAPopularNames\\obj\\",
+      "projectPath": "C:\\Users\\kseno\\OneDrive\\Desktop\\Vamia\\verkko-ohjelmointi_Syventävä\\ReadJSONFromWeb\\USAPopularNames.csproj",
+      "packagesPath": "C:\\Users\\kseno\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kseno\\OneDrive\\Desktop\\Vamia\\verkko-ohjelmointi_Syventävä\\ReadJSONFromWeb\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\aksum\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\kseno\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -33,7 +28,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
